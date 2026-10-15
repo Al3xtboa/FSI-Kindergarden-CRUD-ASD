@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 public class FPrincipal extends javax.swing.JFrame {
     
     Conexion cnx = new Conexion();
-//Holaaaaaa:D
+
     /**
      * Creates new form FPrincipal
      */
@@ -209,18 +209,22 @@ public class FPrincipal extends javax.swing.JFrame {
             JDInfantes di = new JDInfantes(this, true);
             di.obtenerConexion(cnx);
             di.setVisible(true);
+            cnx.entablar(infante.todos, TQuery);
         } else if (TBEducador.isSelected()) {
             JDEducadores de = new JDEducadores(this, true);
             de.obtenerConexion(cnx);
             de.setVisible(true);
+            cnx.entablar(educador.todos, TQuery);
         }else if (TBResponsable.isSelected()) {
             JDResponsables dr = new JDResponsables(this, true);
             dr.obtenerConexion(cnx);
             dr.setVisible(true);
+            cnx.entablar(responsable.todos, TQuery);
         }else if (TBBitacora.isSelected()) {
             JDBitacora db = new JDBitacora(this, true);
             db.obtenerConexion(cnx);
             db.setVisible(true);
+            cnx.entablar(bitacora.todos, TQuery);
         }
     }//GEN-LAST:event_BNuevoActionPerformed
 

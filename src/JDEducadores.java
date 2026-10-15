@@ -286,7 +286,7 @@ public class JDEducadores extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_BCancelarActionPerformed
-
+    //Holaaaaaa:D
     /**
      * @param args the command line arguments
      */

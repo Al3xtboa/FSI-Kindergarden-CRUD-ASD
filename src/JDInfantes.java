@@ -19,7 +19,7 @@ public class JDInfantes extends javax.swing.JDialog {
 
     private Conexion cnx;
     
-    
+    //Holaaaaaa:D
     /**
      * Creates new form JDInfantes
      */

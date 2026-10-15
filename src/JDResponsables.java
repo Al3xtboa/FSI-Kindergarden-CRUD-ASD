@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 public class JDResponsables extends javax.swing.JDialog {
 
     private Conexion cnx;
-    
+    //Holaaaaaa:D
     /**
      * Creates new form JDInfantes
      */
