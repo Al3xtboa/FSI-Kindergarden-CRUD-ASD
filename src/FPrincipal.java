@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 public class FPrincipal extends javax.swing.JFrame {
     
     Conexion cnx = new Conexion();
-
+//Holaaaaaa:D
     /**
      * Creates new form FPrincipal
      */
