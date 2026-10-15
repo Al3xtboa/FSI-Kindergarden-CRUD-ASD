@@ -1,6 +1,9 @@
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /*
@@ -30,6 +33,16 @@ public class JDBitacora extends javax.swing.JDialog {
             cnx.seleccionar(educador.curps, CbEducador);
             cnx.seleccionar(responsable.curps, CbResponsable);
     }
+    
+        public void obtenerBitacora(bitacora bic){
+            JFolio.setText(bic.folio);
+            JFecha.setText(bic.tiempo);
+            CbTipo.setSelectedItem(bic.tipo);
+            TaObserva.setText(bic.observaciones);
+            CbInfante.setSelectedItem(bic.curpi);
+            CbResponsable.setSelectedItem(bic.curpr);
+            CbEducador.setSelectedItem(bic.curpe);
+    }    
         
     /**
      * This method is called from within the constructor to initialize the form.
@@ -99,6 +112,11 @@ public class JDBitacora extends javax.swing.JDialog {
         });
 
         Bborrar.setText("BORRAR");
+        Bborrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BborrarActionPerformed(evt);
+            }
+        });
 
         BActualizar.setText("ACTUALIZAR");
         BActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -108,6 +126,11 @@ public class JDBitacora extends javax.swing.JDialog {
         });
 
         BCancelar.setText("CANCELAR");
+        BCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -248,16 +271,34 @@ public class JDBitacora extends javax.swing.JDialog {
         );
         
         if (bic.insertar(cnx.con)==1) {
-            JOptionPane.showMessageDialog(this, "Bitacora Registrada B)");
+            JOptionPane.showMessageDialog(this, "Bitacora Registrada");
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Error de Registro X_x");
+            JOptionPane.showMessageDialog(this, "Error de Registro");
 //            this.dispose();
         }
     }//GEN-LAST:event_BRegistrarActionPerformed
 
     private void BActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BActualizarActionPerformed
         // TODO add your handling code here:
+        bitacora bic = new bitacora(
+            null,
+            JFecha.getText(),
+            CbTipo.getSelectedItem().toString(),
+            TaObserva.getText(),
+            CbInfante.getSelectedItem().toString(),
+            CbResponsable.getSelectedItem().toString(),
+            CbEducador.getSelectedItem().toString()
+                
+        );
+        
+        if (bic.actualizar(cnx.con)==1) {
+            JOptionPane.showMessageDialog(this, "Bitacora Actualizada");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error de Actualizacion");
+//            this.dispose();
+        }
     }//GEN-LAST:event_BActualizarActionPerformed
 
     private void BhoyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BhoyActionPerformed
@@ -266,6 +307,33 @@ public class JDBitacora extends javax.swing.JDialog {
         JFecha.setText(s.format(new Date()));
         
     }//GEN-LAST:event_BhoyActionPerformed
+
+    private void BborrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BborrarActionPerformed
+        // TODO add your handling code here:
+        bitacora bic = new bitacora(
+            null,
+            JFecha.getText(),
+            CbTipo.getSelectedItem().toString(),
+            TaObserva.getText(),
+            CbInfante.getSelectedItem().toString(),
+            CbResponsable.getSelectedItem().toString(),
+            CbEducador.getSelectedItem().toString()
+                
+        );
+        
+        if (bic.borrar(cnx.con)==1) {
+            JOptionPane.showMessageDialog(this, "Eliminando datos de Bitacora");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error de Borrado");
+//            this.dispose();
+        }
+    }//GEN-LAST:event_BborrarActionPerformed
+
+    private void BCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_BCancelarActionPerformed
 
     /**
      * @param args the command line arguments

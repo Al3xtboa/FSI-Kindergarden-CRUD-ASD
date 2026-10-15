@@ -1,5 +1,8 @@
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -22,6 +25,15 @@ public class JDEducadores extends javax.swing.JDialog {
         public void obtenerConexion(Conexion cnx){
         this.cnx = cnx;
         
+    }
+        
+        public void obtenerEducador(educador edu){
+            TxCurp.setText(edu.curp);
+            TxNombre.setText(edu.nombre);
+            CbSexo.setSelectedItem(edu.sexo);
+            TxTelefono.setText(edu.telefono);
+            TxDirrecion.setText(edu.direccion);
+            CbEstado.setSelectedItem(edu.estado);
     }
         
     /**
@@ -81,6 +93,11 @@ public class JDEducadores extends javax.swing.JDialog {
         });
 
         Bborrar.setText("BORRAR");
+        Bborrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BborrarActionPerformed(evt);
+            }
+        });
 
         BActualizar.setText("ACTUALIZAR");
         BActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -90,6 +107,11 @@ public class JDEducadores extends javax.swing.JDialog {
         });
 
         BCancelar.setText("CANCELAR");
+        BCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -190,7 +212,26 @@ public class JDEducadores extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BActualizarActionPerformed
-        // TODO add your handling code here:
+            // TODO add your handling code here:     
+            educador edu = new educador(
+        
+                TxCurp.getText(),
+                TxNombre.getText(),
+                CbSexo.getSelectedItem().toString(),
+                TxTelefono.getText(),
+                TxDirrecion.getText(),
+                CbEstado.getSelectedItem().toString()     
+        );
+ 
+        if (edu.actualizar(cnx.con)==1) {
+            JOptionPane.showMessageDialog(this, "Educador Actualizado 🤖");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error de Actualizacion 👾");
+//            this.dispose();
+        }
+        
+       
     }//GEN-LAST:event_BActualizarActionPerformed
 
     private void BRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BRegistrarActionPerformed
@@ -206,10 +247,10 @@ public class JDEducadores extends javax.swing.JDialog {
         );
  
         if (edu.insertar(cnx.con)==1) {
-            JOptionPane.showMessageDialog(this, "Educador Registrado B)");
+            JOptionPane.showMessageDialog(this, "Educador Registrado 👍");
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Error de Registro X_x");
+            JOptionPane.showMessageDialog(this, "Error de Registro 💀");
 //            this.dispose();
         }
         
@@ -218,6 +259,33 @@ public class JDEducadores extends javax.swing.JDialog {
     private void TxNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TxNombreActionPerformed
+
+    private void BborrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BborrarActionPerformed
+        // TODO add your handling code here:     
+            educador edu = new educador(
+        
+                TxCurp.getText(),
+                TxNombre.getText(),
+                CbSexo.getSelectedItem().toString(),
+                TxTelefono.getText(),
+                TxDirrecion.getText(),
+                CbEstado.getSelectedItem().toString()     
+        );
+ 
+        if (edu.borrar(cnx.con)==1) {
+            JOptionPane.showMessageDialog(this, "Educador Borrado ❌");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error de Borrado ♾️");
+//            this.dispose();
+        }
+        
+    }//GEN-LAST:event_BborrarActionPerformed
+
+    private void BCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_BCancelarActionPerformed
 
     /**
      * @param args the command line arguments

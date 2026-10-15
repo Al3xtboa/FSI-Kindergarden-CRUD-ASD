@@ -1,5 +1,8 @@
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /*
@@ -26,6 +29,16 @@ public class JDResponsables extends javax.swing.JDialog {
     public void obtenerConexion(Conexion cnx){
         this.cnx = cnx;
         
+    }
+    
+    public void obtenerResponsable(responsable res){
+            TxCurp.setText(res.curp);
+            TxNombre.setText(res.nombre);
+            CbSexo.setSelectedItem(res.sexo);
+            TxTelefono.setText(res.telefono);
+            TxParentesco.setText(res.parentesco);
+            CbEstado.setSelectedItem(res.estado);
+
     }
     
     /**
@@ -79,6 +92,11 @@ public class JDResponsables extends javax.swing.JDialog {
         });
 
         Bborrar.setText("BORRAR");
+        Bborrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BborrarActionPerformed(evt);
+            }
+        });
 
         BActualizar.setText("ACTUALIZAR");
         BActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -88,6 +106,11 @@ public class JDResponsables extends javax.swing.JDialog {
         });
 
         BCancelar.setText("CANCELAR");
+        BCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -181,6 +204,24 @@ public class JDResponsables extends javax.swing.JDialog {
 
     private void BActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BActualizarActionPerformed
         // TODO add your handling code here:
+        responsable res = new responsable(
+        
+            TxCurp.getText(),
+            TxNombre.getText(),
+            CbSexo.getSelectedItem().toString(),
+            TxTelefono.getText(),
+            TxParentesco.getText(),
+            CbEstado.getSelectedItem().toString()
+                
+        );
+        
+        if (res.actualizar(cnx.con)==1) {
+            JOptionPane.showMessageDialog(this, "Responsable Actualizado 🤖");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error de Actualizacion 👾");
+//            this.dispose();
+        }
     }//GEN-LAST:event_BActualizarActionPerformed
 
     private void BRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BRegistrarActionPerformed
@@ -197,13 +238,40 @@ public class JDResponsables extends javax.swing.JDialog {
         );
         
         if (res.insertar(cnx.con)==1) {
-            JOptionPane.showMessageDialog(this, "Responsable Registrado B)");
+            JOptionPane.showMessageDialog(this, "Responsable Registrado 👍");
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Error de Registro X_x");
+            JOptionPane.showMessageDialog(this, "Error de Registro 💀");
 //            this.dispose();
         }
     }//GEN-LAST:event_BRegistrarActionPerformed
+
+    private void BborrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BborrarActionPerformed
+        // TODO add your handling code here:
+        responsable res = new responsable(
+        
+            TxCurp.getText(),
+            TxNombre.getText(),
+            CbSexo.getSelectedItem().toString(),
+            TxTelefono.getText(),
+            TxParentesco.getText(),
+            CbEstado.getSelectedItem().toString()
+                
+        );
+        
+        if (res.borrar(cnx.con)==1) {
+            JOptionPane.showMessageDialog(this, "Responsable Borrado ❌");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error de borrado ♾️");
+//            this.dispose();
+        }
+    }//GEN-LAST:event_BborrarActionPerformed
+
+    private void BCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_BCancelarActionPerformed
 
     /**
      * @param args the command line arguments

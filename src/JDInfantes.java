@@ -1,6 +1,9 @@
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /*
@@ -28,8 +31,24 @@ public class JDInfantes extends javax.swing.JDialog {
     
     public void obtenerConexion(Conexion cnx){
         this.cnx = cnx;
+    }
+    
+    public void obtenerInfante(infante kid){
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            
+            TxCurp.setText(kid.curp);
+            TxNombre.setText(kid.nombre);
+            CbSexo.setSelectedItem(kid.sexo);
+            SFecha.setValue(format.parse(kid.fecha));
+            CbEstado.setSelectedItem(kid.estado);
+        } catch (ParseException ex) {
+            Logger.getLogger(JDInfantes.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -81,6 +100,11 @@ public class JDInfantes extends javax.swing.JDialog {
         });
 
         Bborrar.setText("BORRAR");
+        Bborrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BborrarActionPerformed(evt);
+            }
+        });
 
         BActualizar.setText("ACTUALIZAR");
         BActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -90,6 +114,11 @@ public class JDInfantes extends javax.swing.JDialog {
         });
 
         BCancelar.setText("CANCELAR");
+        BCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -173,6 +202,23 @@ public class JDInfantes extends javax.swing.JDialog {
 
     private void BActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BActualizarActionPerformed
         // TODO add your handling code here:
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+        infante kid = new infante(
+        
+                TxCurp.getText(),
+                TxNombre.getText(),
+                CbSexo.getSelectedItem().toString(),
+                s.format((Date)SFecha.getValue()),
+                CbEstado.getSelectedItem().toString()
+        );
+        
+        if (kid.actualizar(cnx.con)==1) {
+            JOptionPane.showMessageDialog(this, "Infante Actualizado 🤖");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error de Actualizacion 👾");
+//            this.dispose();
+        }
     }//GEN-LAST:event_BActualizarActionPerformed
 
     private void BRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BRegistrarActionPerformed
@@ -185,17 +231,42 @@ public class JDInfantes extends javax.swing.JDialog {
                 CbSexo.getSelectedItem().toString(),
                 s.format((Date)SFecha.getValue()),
                 CbEstado.getSelectedItem().toString()
-                
         );
         
         if (kid.insertar(cnx.con)==1) {
-            JOptionPane.showMessageDialog(this, "Infante Registrado B)");
+            JOptionPane.showMessageDialog(this, "Infante Registrado 👍");
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Error de Registro X_x");
+            JOptionPane.showMessageDialog(this, "Error de Registro 💀️");
 //            this.dispose();
         }
     }//GEN-LAST:event_BRegistrarActionPerformed
+
+    private void BborrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BborrarActionPerformed
+        // TODO add your handling code here:
+                SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+                infante kid = new infante(
+        
+                TxCurp.getText(),
+                TxNombre.getText(),
+                CbSexo.getSelectedItem().toString(),
+                s.format((Date)SFecha.getValue()),
+                CbEstado.getSelectedItem().toString()
+        );
+        
+        if (kid.borrar(cnx.con)==1) {
+            JOptionPane.showMessageDialog(this, "Infante Borrado ❌");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error de Borrado ♾️");
+//            this.dispose();
+        }
+    }//GEN-LAST:event_BborrarActionPerformed
+
+    private void BCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_BCancelarActionPerformed
 
     /**
      * @param args the command line arguments
