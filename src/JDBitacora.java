@@ -311,7 +311,7 @@ public class JDBitacora extends javax.swing.JDialog {
     private void BborrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BborrarActionPerformed
         // TODO add your handling code here:
         bitacora bic = new bitacora(
-            null,
+            JFolio.getText(),
             JFecha.getText(),
             CbTipo.getSelectedItem().toString(),
             TaObserva.getText(),
