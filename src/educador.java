@@ -65,8 +65,9 @@ public class educador {
             ps.setString(1, nombre);
             ps.setString(2, sexo);
             ps.setString(3, telefono);
-            ps.setString(3, telefono);
-            ps.setString(4, estado);
+            ps.setString(4, direccion);
+            ps.setString(5, estado);
+            ps.setString(6, curp);
             return ps.executeUpdate(); 
             
         } catch (Exception e) {

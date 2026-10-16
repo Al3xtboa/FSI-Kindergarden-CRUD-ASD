@@ -57,12 +57,13 @@ public class infante {
     public int actualizar(Connection con){
         int resultado = 0;
         try {
-            String sql = "UPDATE infantes SET nombrei = ?, sexoi = ?, fecha_nac = ?, estadoi = ? WHERE curp = ?";
+            String sql = "UPDATE infantes SET nombrei = ?, sexoi = ?, fecha_nac = ?, estadoi = ? WHERE curpi = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, nombre);
             ps.setString(2, sexo);
             ps.setString(3, fecha);
             ps.setString(4, estado);
+            ps.setString(5, curp);
             return ps.executeUpdate(); 
             
         } catch (Exception e) {
